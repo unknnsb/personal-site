@@ -3,21 +3,32 @@ import { motion } from "framer-motion";
 
 const App = () => {
   return (
-    <section id="about" className="min-h-screen bg-[#eee] flex items-center justify-center">
+    <section
+      id="about"
+      className="min-h-screen bg-[#0f0f0f] text-gray-300 flex items-center justify-center font-mono"
+    >
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="text-center p-8"
+        transition={{ duration: 1.2 }}
+        className="text-center max-w-xl px-8"
       >
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">About Me</h2>
-        <p className="text-gray-700">
-          Hello, my name is Nesbeer (Nesbro) and I am 15 years old. The three areas that I am interested in the most are technology, cinema, and design. I love combining creative sides with technical ones: designing solutions in perfect code, talking about filmmaking, and creating something pretty.
-          I am on the way to becoming a full-stack developer, and I am concentrating on creating frameworks such as ReactJS, Next.js, and TailwindCSS. I focus my projects on a minimal, functional, and somewhat artistic basis. But aside from coding, I focus more on cinema, philosophy, and the image system.
+        <h2 className="text-2xl mb-6 tracking-wide text-gray-500 uppercase">
+          Wnabe’Eliot
+        </h2>
+
+        <span className="text-sm text-goth-red tracking-widest">[ fsociety ]</span>
+
+        <p className="text-md leading-relaxed text-gray-400 mt-4">
+          my name’s nesbeer. 15. building things on a phone.<br /><br />
+          i love coding, cinema, design — all the stuff no one around me gets. <br /><br />
+          not trying to be a dev god. just making things i’d wanna use.<br /><br />
+          i work with react, next, tailwind.<br /><br />
+          <span className="text-gray-600 text-sm italic">‘i don’t exist in real life.’</span>
         </p>
       </motion.div>
     </section>
-  )
-}
+  );
+};
 
-export default App
+export default App;

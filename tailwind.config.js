@@ -5,17 +5,18 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        pastelBlue: "#c9e4de",
-        pastelPink: "#ffdce5",
-        pastelYellow: "#fff9c4",
-        pastelGreen: "#d7f9d7",
-      },
-      fontFamily: {
-        sans: ['"Poppins"', "sans-serif"],
+  extend: {
+    fontFamily: {
+      mono: ["'JetBrains Mono'", "monospace"],
+    },
+    colors: {
+      goth: {
+        bg: "#0f0f0f",
+        text: "#c0c0c0",
+        red: "#a11313",
       },
     },
   },
+},
   plugins: [],
 }
