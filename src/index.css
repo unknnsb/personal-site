@@ -34,8 +34,7 @@
     margin: 0;
     background: rgb(var(--bg));
     color: rgb(var(--text));
-    /* IMPORTANT: set real premium fonts in tailwind.config + index.html (next step) */
-    font-family: var(--font-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: "Manrope", var(--font-sans, ui-sans-serif), system-ui, -apple-system, "Segoe UI", sans-serif;
     line-height: 1.6;
   }
 

@@ -1,8 +1,12 @@
-import React from "react";
+import { motion } from "framer-motion";
 
 const ProjectCard = ({ title, description, githubUrl, previewUrl }) => {
   return (
-    <article className="card p-6 transition-colors duration-200 hover:border-border/90">
+    <motion.article
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.2, ease: [0.25, 1, 0.5, 1] }}
+      className="card p-6 transition-colors duration-200 hover:border-border/90"
+    >
       <header className="mb-5">
         <h3 className="font-serif text-[20px] leading-snug text-text tracking-[-0.01em]">
           {title}
@@ -37,7 +41,7 @@ const ProjectCard = ({ title, description, githubUrl, previewUrl }) => {
           </a>
         ) : null}
       </footer>
-    </article>
+    </motion.article>
   );
 };
 
