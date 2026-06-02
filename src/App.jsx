@@ -8,16 +8,16 @@ import SocialLinks from "./components/SocialLinks.jsx";
 const App = () => {
   const featuredProjects = [
     {
-      title: "tiak",
-      description: "self-hosted video downloader + gallery",
-      githubUrl: "https://github.com/madsykle/tiak",
-      previewUrl: "https://github.com/madsykle/tiak",
-    },
-    {
       title: "netflyer",
       description: "minimal ad-free streaming, rebuilt for performance",
       githubUrl: "https://github.com/madsykle/netflyer",
       previewUrl: "https://netflyer.vercel.app",
+    },
+    {
+      title: "tiak",
+      description: "self-hosted video downloader + gallery",
+      githubUrl: "https://github.com/madsykle/tiak",
+      previewUrl: "https://github.com/madsykle/tiak",
     },
     {
       title: "dotfiles",

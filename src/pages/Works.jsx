@@ -1,4 +1,3 @@
-import React from "react";
 import ProjectCard from "../components/ProjectCard.jsx";
 
 const projects = [
@@ -15,34 +14,16 @@ const projects = [
     previewUrl: "https://github.com/madsykle/tiak",
   },
   {
-    title: "onotor",
-    description: "ultra-lightweight torrent manager for VPS. idle RAM under 100MB.",
-    githubUrl: "https://github.com/madsykle/onotor",
-    previewUrl: "https://github.com/madsykle/onotor",
-  },
-  {
-    title: "promio",
-    description: "local-first web app that refines rough inputs into clean LLM prompts.",
-    githubUrl: "https://github.com/madsykle/promio",
-    previewUrl: "https://github.com/madsykle/promio",
-  },
-  {
     title: "dotfiles",
     description: "termux + proot setup. shell tweaks, scripts, configs.",
     githubUrl: "https://github.com/madsykle/dotfiles",
     previewUrl: "https://github.com/madsykle/dotfiles",
   },
   {
-    title: "crate",
-    description: "[BUILDING] music acquisition app integrating MusicBrainz + slskd + OneDrive.",
-    githubUrl: "https://github.com/madsykle",
-    previewUrl: "#",
-  },
-  {
-    title: "dalonsi",
-    description: "[BUILDING] personal cinema OS. unified film tracking + streaming.",
-    githubUrl: "https://github.com/madsykle",
-    previewUrl: "#",
+    title: "promio",
+    description: "local-first web app that refines rough inputs into clean LLM prompts.",
+    githubUrl: "https://github.com/madsykle/promio",
+    previewUrl: "https://github.com/madsykle/promio",
   },
 ];
 
