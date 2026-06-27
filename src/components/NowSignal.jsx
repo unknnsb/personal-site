@@ -16,6 +16,7 @@ const NowSignal = () => {
           setFilm({ title: "unknown", loading: false });
         }
       } catch (e) {
+        console.error("Letterboxd fetch error:", e);
         setFilm({ title: "unknown", loading: false });
       }
     };
@@ -42,6 +43,7 @@ const NowSignal = () => {
           setTrack({ title: "silence", artist: "", isPlaying: false, loading: false });
         }
       } catch (e) {
+        console.error("Last.fm fetch error:", e);
         setTrack({ title: "silence", artist: "", isPlaying: false, loading: false });
       }
     };

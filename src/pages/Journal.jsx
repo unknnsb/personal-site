@@ -116,6 +116,7 @@ const Journal = () => {
 
         setReviews({ items: allReviews, loading: false });
       } catch (e) {
+        console.error("Journal loading error:", e);
         setReviews({ items: [], loading: false });
       }
     };
