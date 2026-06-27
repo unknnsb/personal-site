@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import matter from "gray-matter";
+import { motion } from "framer-motion";
+
+const parseFrontmatter = (mdContent) => {
+  const match = mdContent.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return { data: {}, content: mdContent };
+  
+  const yaml = match[1];
+  const content = match[2];
+  const data = {};
+  
+  yaml.split('\n').forEach(line => {
+    const [key, ...values] = line.split(':');
+    if (key && values.length > 0) {
+      let val = values.join(':').trim();
+      val = val.replace(/^["'](.*)["']$/, '$1');
+      if (key.trim() === 'rating') val = Number(val);
+      data[key.trim()] = val;
+    }
+  });
+  
+  return { data, content };
+};
 
 const Entry = () => {
   const { slug } = useParams();
   const [entry, setEntry] = useState({ content: "", data: {} });
-  const [status, setStatus] = useState("loading"); // loading | ready | missing
+  const [status, setStatus] = useState("loading");
 
   useEffect(() => {
     const files = import.meta.glob("../notes/*.md", {
@@ -22,42 +43,42 @@ const Entry = () => {
     }
 
     files[matchKey]().then((raw) => {
-      const parsed = matter(raw);
+      const parsed = parseFrontmatter(raw);
       setEntry({ content: parsed.content, data: parsed.data || {} });
       setStatus("ready");
     });
   }, [slug]);
 
   return (
-    <section className="container-pro">
-      <div className="py-10 md:py-16">
-        <div className="mb-8 flex items-center justify-between">
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.4, ease: "easeInOut" }}
+      className="container-pro"
+    >
+      <div className="py-12 md:py-20">
+        <div className="mb-16">
           <Link
             to="/journal"
-            className="font-mono text-xs tracking-[0.22em] text-muted hover:text-text transition-colors"
+            className="font-mono text-[11px] tracking-[0.2em] text-muted hover:text-text transition-all underline decoration-transparent hover:decoration-muted underline-offset-4"
           >
             ← BACK
           </Link>
         </div>
 
         {status === "missing" ? (
-          <div className="card p-6">
-            <p className="text-sm text-muted">Entry not found.</p>
-          </div>
+          <p className="font-mono text-xs text-text/30 tracking-widest">not found.</p>
         ) : status === "loading" ? (
-          <div className="card p-6">
-            <p className="text-sm text-muted">Loading…</p>
-          </div>
+          <p className="font-mono text-xs text-text/30 tracking-widest">loading...</p>
         ) : (
           <>
-            <header className="mx-auto max-w-2xl">
-              <h1 className="font-serif text-[38px] leading-[1.08] tracking-[-0.02em] text-text md:text-[52px]">
-                {entry.data.title || "Untitled"}
+            <header className="mb-16">
+              <h1 className="font-serif text-3xl sm:text-4xl tracking-widest text-text mb-4 lowercase">
+                {entry.data.title || "untitled"}
               </h1>
-
               {entry.data.date ? (
                 <time
-                  className="mt-3 block font-mono text-xs tracking-[0.22em] text-muted"
+                  className="font-mono text-[10px] text-text/30 tracking-widest"
                   dateTime={entry.data.date}
                 >
                   {entry.data.date}
@@ -65,29 +86,14 @@ const Entry = () => {
               ) : null}
             </header>
 
-            <article className="mt-10 card p-6 md:p-10">
-              <div
-                className="
-                  prose max-w-none
-                  prose-headings:font-serif prose-headings:text-text prose-headings:tracking-[-0.01em]
-                  prose-p:text-muted prose-p:leading-relaxed
-                  prose-strong:text-text
-                  prose-a:text-text prose-a:underline prose-a:decoration-border prose-a:underline-offset-8 hover:prose-a:decoration-accent
-                  prose-hr:border-border
-                  prose-blockquote:border-border prose-blockquote:text-muted
-                  prose-code:text-text prose-code:bg-bg prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md
-                  prose-pre:bg-bg prose-pre:border prose-pre:border-border prose-pre:rounded-xl
-                "
-              >
-                <ReactMarkdown>{entry.content}</ReactMarkdown>
-              </div>
+            <article className="prose max-w-none prose-invert prose-p:font-serif prose-p:text-lg prose-p:leading-[1.8] prose-p:text-text/80 prose-headings:font-serif prose-headings:text-text prose-a:text-text prose-a:underline prose-a:decoration-border hover:prose-a:decoration-muted prose-a:underline-offset-4 prose-hr:border-border prose-blockquote:border-l-border prose-blockquote:text-muted prose-blockquote:font-serif prose-blockquote:italic">
+              <ReactMarkdown>{entry.content}</ReactMarkdown>
             </article>
           </>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 
 export default Entry;
-
