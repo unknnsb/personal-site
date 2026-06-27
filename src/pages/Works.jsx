@@ -1,58 +1,86 @@
-import ProjectCard from "../components/ProjectCard.jsx";
-
-const projects = [
-  {
-    title: "netflyer",
-    description: "minimal, ad-free movie and series streaming. fast UI, no bloat.",
-    githubUrl: "https://github.com/madsykle/netflyer",
-    previewUrl: "https://netflyer.vercel.app",
-  },
-  {
-    title: "tiak",
-    description: "self-hosted TikTok/Instagram downloader and media gallery.",
-    githubUrl: "https://github.com/madsykle/tiak",
-    previewUrl: "https://github.com/madsykle/tiak",
-  },
-  {
-    title: "dotfiles",
-    description: "termux + proot setup. shell tweaks, scripts, configs.",
-    githubUrl: "https://github.com/madsykle/dotfiles",
-    previewUrl: "https://github.com/madsykle/dotfiles",
-  },
-  {
-    title: "promio",
-    description: "local-first web app that refines rough inputs into clean LLM prompts.",
-    githubUrl: "https://github.com/madsykle/promio",
-    previewUrl: "https://github.com/madsykle/promio",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Works = () => {
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRepos = async () => {
+      try {
+        const res = await fetch("https://api.github.com/users/madsykle/repos?per_page=100");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        
+        // Sort by stars (descending)
+        const sorted = data.sort((a, b) => b.stargazers_count - a.stargazers_count);
+        
+        // Exclude forks if desired, but user said "all my github repos", so we just show all.
+        setRepos(sorted);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRepos();
+  }, []);
+
   return (
-    <section id="works" className="container-pro">
-      <div className="py-10 md:py-16">
-        <header className="mx-auto max-w-2xl text-center">
-          <p className="font-mono text-xs tracking-[0.28em] text-muted">
-            /ARCHIVES
-          </p>
-
-          <h1 className="mt-4 font-serif text-[34px] leading-[1.08] tracking-[-0.02em] text-text md:text-[44px]">
-            Selected work.
+    <motion.section 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.4, ease: "easeInOut" }}
+      className="container-pro"
+    >
+      <div className="py-12 md:py-20">
+        <header className="mb-20">
+          <h1 className="font-serif text-3xl sm:text-4xl tracking-widest text-text mb-4 lowercase">
+            projects
           </h1>
-
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Small projects, experiments, and client work—built with restraint and
-            shipped fast.
-          </p>
         </header>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.title} {...project} />
-          ))}
-        </div>
+        {loading ? (
+          <p className="font-mono text-xs text-text/30 tracking-widest">loading...</p>
+        ) : (
+          <div className="flex flex-col gap-6">
+            {repos.map((repo) => (
+              <a
+                key={repo.id}
+                href={repo.html_url}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex flex-col sm:flex-row sm:items-baseline justify-between py-2 border-b border-transparent hover:border-border transition-colors duration-500"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
+                  <div className="flex items-center gap-3">
+                    <span className="font-serif text-xl text-text/90 group-hover:text-text transition-colors">
+                      {repo.name}
+                    </span>
+                    {repo.archived && (
+                      <span className="font-mono text-[9px] px-1.5 py-0.5 bg-border/50 text-text/50 rounded tracking-widest">
+                        ARCHIVED
+                      </span>
+                    )}
+                  </div>
+                  <span className="font-serif italic text-muted text-sm sm:text-base">
+                    {repo.description || "no description"}
+                  </span>
+                </div>
+                <div className="font-mono text-[10px] text-text/30 mt-2 sm:mt-0 tracking-widest flex gap-4">
+                  {repo.language && <span>{repo.language.toUpperCase()}</span>}
+                  {repo.stargazers_count > 0 && <span>★ {repo.stargazers_count}</span>}
+                </div>
+              </a>
+            ))}
+            {repos.length === 0 && (
+              <p className="font-mono text-xs text-text/30 tracking-widest">no repositories found.</p>
+            )}
+          </div>
+        )}
       </div>
-    </section>
+    </motion.section>
   );
 };
 

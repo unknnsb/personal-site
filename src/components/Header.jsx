@@ -1,51 +1,31 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import ThemeToggle from "./ThemeToggle.jsx";
-
-const navLinkBase =
-  "text-sm text-muted transition-colors duration-200 hover:text-text focus-visible:outline-none";
-
-const navLinkActive =
-  "text-text underline decoration-accent underline-offset-8";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Header = () => {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-bg/85 backdrop-blur">
-      <div className="container-pro flex items-center justify-between px-5 py-4">
-        <Link
-          to="/"
-          className="font-mono text-xs tracking-[0.22em] text-text/85 hover:text-text transition-colors"
-          aria-label="Go to home"
-        >
-          ~/MADSYKLE
+    <motion.header 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.4, ease: "easeInOut" }}
+      className="container-pro pt-16 pb-12 flex justify-between items-center"
+    >
+      {!isHome ? (
+        <Link to="/" className="font-mono text-[11px] tracking-[0.2em] text-muted hover:text-text transition-all underline decoration-transparent hover:decoration-muted underline-offset-4">
+          ← BACK
         </Link>
-
-        <nav className="flex items-center gap-6">
-          <NavLink
-            to="/works"
-            className={({ isActive }) =>
-              `${navLinkBase} ${isActive ? navLinkActive : ""}`
-            }
-          >
-            Archives
-          </NavLink>
-
-          <NavLink
-            to="/journal"
-            className={({ isActive }) =>
-              `${navLinkBase} ${isActive ? navLinkActive : ""}`
-            }
-          >
-            Journal
-          </NavLink>
-
-          <ThemeToggle />
-
-        </nav>
-      </div>
-    </header>
+      ) : (
+        <div /> 
+      )}
+      <nav className="flex gap-6 font-mono text-[11px] tracking-[0.2em]">
+        <Link to="/works" className="text-muted hover:text-text transition-colors">WORKS</Link>
+        <Link to="/journal" className="text-muted hover:text-text transition-colors">JOURNAL</Link>
+      </nav>
+    </motion.header>
   );
 };
 
 export default Header;
-

@@ -3,26 +3,19 @@ import typography from "@tailwindcss/typography"
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ["'Manrope'", "ui-sans-serif", "system-ui"],
-        serif: ["'Instrument Serif'", "ui-serif", "Georgia"],
-        mono: ["'JetBrains Mono'", "monospace"],
+        serif: ["'Playfair Display'", "ui-serif", "Georgia", "serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "monospace"],
       },
-
       colors: {
-        bg: "rgb(var(--bg) / <alpha-value>)",
-        surface: "rgb(var(--surface) / <alpha-value>)",
-        text: "rgb(var(--text) / <alpha-value>)",
-        muted: "rgb(var(--muted) / <alpha-value>)",
-        border: "rgb(var(--border) / <alpha-value>)",
-        accent: "rgb(var(--accent) / <alpha-value>)",
-        accent2: "rgb(var(--accent-2) / <alpha-value>)",
+        bg: "#080808",
+        text: "#e8e4dc",
+        muted: "#737373",
+        border: "#1f1f1f",
       },
     },
   },
   plugins: [typography],
 }
-
