@@ -29,6 +29,8 @@ const MusicPlayer = () => {
     audio.addEventListener("timeupdate", updateProgress);
     return () => {
       audio.removeEventListener("timeupdate", updateProgress);
+      audio.pause();
+      audio.src = "";
     };
   }, []);
 
@@ -68,9 +70,6 @@ const MusicPlayer = () => {
     setPermission(choice ? "true" : "false");
   };
 
-  if (permission === "false") return null;
-  if (!isVisible && permission === "true") return null;
-
   return (
     <div className="fixed bottom-6 right-6 z-[9999] font-mono text-xs select-none">
       <AnimatePresence mode="wait">
@@ -92,7 +91,7 @@ const MusicPlayer = () => {
               </button>
             </div>
           </motion.div>
-        ) : (
+        ) : isVisible && permission === "true" ? (
           <motion.div
             key="player"
             drag
@@ -101,6 +100,7 @@ const MusicPlayer = () => {
             dragMomentum={false}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
             className="w-72 bg-[#080808] border border-border flex flex-col shadow-2xl"
           >
             {/* Titlebar */}
@@ -165,7 +165,7 @@ const MusicPlayer = () => {
               </div>
             </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );
