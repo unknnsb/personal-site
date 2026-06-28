@@ -1,8 +1,9 @@
+"use client";
 import React from "react";
-import { Link } from "react-router-dom";
+
 import { motion } from "framer-motion";
 
-import NowSignal from "./components/NowSignal.jsx";
+import NowSignal from "../components/NowSignal.jsx";
 
 const App = () => {
   const projects = [

@@ -1,5 +1,6 @@
+"use client";
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 const NotFound = () => {
@@ -19,7 +20,7 @@ const NotFound = () => {
         </p>
 
         <Link
-          to="/"
+          href="/"
           className="font-mono text-[11px] tracking-[0.2em] text-muted hover:text-text transition-all underline decoration-transparent hover:decoration-muted underline-offset-4"
         >
           back home

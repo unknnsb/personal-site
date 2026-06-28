@@ -1,10 +1,16 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useDragControls } from "framer-motion";
 
 const MusicPlayer = () => {
-  const [permission, setPermission] = useState(() => {
-    return localStorage.getItem("audio_permission");
-  });
+  const [permission, setPermission] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.localStorage) {
+      const saved = window.localStorage.getItem("audio_permission");
+      if (saved) setPermission(saved);
+    }
+  }, []);
   const [isVisible, setIsVisible] = useState(true);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);

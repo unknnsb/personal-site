@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 
 const NowSignal = () => {
@@ -23,7 +24,7 @@ const NowSignal = () => {
 
     const fetchTrack = async () => {
       try {
-        const apiKey = import.meta.env.VITE_LASTFM_API_KEY;
+        const apiKey = process.env.NEXT_PUBLIC_LASTFM_API_KEY;
         if (!apiKey) {
           setTrack(prev => ({ ...prev, loading: false }));
           return;

@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -10,7 +11,7 @@ const PosterModal = ({ isOpen, onClose, movieId, slug, title, onSelect }) => {
 
     const fetchPosters = async () => {
       setLoading(true);
-      const tmdbKey = import.meta.env.VITE_TMDB_API_KEY;
+      const tmdbKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
       try {
         const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${tmdbKey}`);
         const json = await res.json();

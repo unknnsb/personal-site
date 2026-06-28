@@ -1,3 +1,4 @@
+"use client";
 import { motion } from "framer-motion";
 
 const ProjectCard = ({ title, description, githubUrl, previewUrl }) => {

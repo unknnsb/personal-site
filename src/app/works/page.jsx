@@ -1,5 +1,7 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+
 
 const Works = () => {
   const [repos, setRepos] = useState([]);
